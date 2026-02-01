@@ -1,0 +1,70 @@
+# Stargrind Tournament - Russian Language File
+# Format: KEY=Value
+# Menu (Lines 1-20)
+MENU_TITLE=Stargrind Tournament
+MENU_PLAY=ИГРАТЬ
+MENU_LEADERBOARD=Таблица лидеров
+MENU_SETTINGS=Настройки
+MENU_COFFEE=Купи мне кофе
+MENU_QUIT=Выход
+# Queue (Lines 21-40)
+QUEUE_TITLE=Поиск матча...
+QUEUE_PLAYERS=Игроков в очереди
+QUEUE_WAITING=Ожидание игроков
+QUEUE_CANCEL=Отмена
+QUEUE_FOUND=Матч найден!
+# Versus Screen (Lines 41-60)
+VERSUS_TITLE=ПРОТИВ
+VERSUS_TEAM_A=Команда A
+VERSUS_TEAM_B=Команда B
+VERSUS_VS=VS
+# Vote (Lines 61-80)
+VOTE_TITLE=Голосование за сложность
+VOTE_EASY=Easy
+VOTE_NORMAL=Normal
+VOTE_HARD=Hard
+VOTE_HARDER=Harder
+VOTE_INSANE=Insane
+VOTE_DEMON=Demon
+VOTE_EXTREME=Extreme Demon
+VOTE_TIME_LEFT=Осталось времени
+VOTE_SKIP=Пропустить голос
+# Match (Lines 81-120)
+MATCH_TITLE=Матч в процессе
+MATCH_TIME_LEFT=Осталось времени
+MATCH_YOUR_TEAM=Ваша команда
+MATCH_ENEMY_TEAM=Вражеская команда
+MATCH_STARS=Звезды
+MATCH_SKIP_LEVEL=Пропустить уровень
+MATCH_SPECTATING=Наблюдение...
+MATCH_WAITING_END=Ожидание других игроков...
+MATCH_LAST_TRY=Последняя попытка!
+# Results (Lines 121-150)
+RESULT_VICTORY=ПОБЕДА!
+RESULT_DEFEAT=ПОРАЖЕНИЕ
+RESULT_TIE=НИЧЬЯ
+RESULT_MVP=MVP
+RESULT_XP_EARNED=Опыта получено
+RESULT_NEW_LEVEL=НОВЫЙ УРОВЕНЬ!
+RESULT_CONTINUE=Продолжить
+# Leaderboard (Lines 151-170)
+LB_TITLE=Глобальный рейтинг
+LB_RANK=Ранг
+LB_PLAYER=Игрок
+LB_LEVEL=Уровень
+LB_XP=XP
+LB_WINS=Победы
+LB_YOUR_RANK=Ваш ранг
+LB_REFRESH=Обновить
+# Settings (Lines 171-200)
+SETTINGS_TITLE=Настройки
+SETTINGS_LDM=Режим низкой детализации
+SETTINGS_SHAKE=Тряска экрана
+SETTINGS_LANGUAGE=Язык
+SETTINGS_SAVE=Сохранить
+SETTINGS_CANCEL=Отмена
+# Errors (Lines 201-220)
+ERROR_CONNECTION=Ошибка соединения
+ERROR_TIMEOUT=Время ожидания истекло
+ERROR_KICKED=Вы были кикнуты (AFK)
+ERROR_MATCH_ENDED=Матч окончен

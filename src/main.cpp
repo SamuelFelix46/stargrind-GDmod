@@ -1,9 +1,14 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/MenuLayer.hpp>
+#include <Geode/modify/PlayLayer.hpp>
 #include "ui/MainMenuLayer.hpp"
 #include "ui/Components/HoverButton.hpp"
 #include "core/Localization.hpp"
+#include "network/P2PNetwork.hpp" // Ton header réseau
+#include "core/GameSession.hpp"   // Pour la session
+
 using namespace geode::prelude;
+
 // ============================================
 // HOOK: Menu Principal de GD
 // ============================================
@@ -11,8 +16,9 @@ class $modify(StargrindMenuLayer, MenuLayer) {
     bool init() {
         if (!MenuLayer::init()) return false;
         
-        // Initialiser la localisation
+        // Initialiser la localisation et le réseau
         Stargrind::Localization::get();
+        Stargrind::Network::P2PNetwork::get()->initialize(7777);
         
         auto winSize = CCDirector::sharedDirector()->getWinSize();
         
@@ -41,13 +47,11 @@ class $modify(StargrindMenuLayer, MenuLayer) {
             menu_selector(StargrindMenuLayer::onStargrind)
         );
         
-        // Positionnement à côté des coffres (bottom right)
-        // Trouver le menu des coffres
+        // Positionnement (bottom right)
         if (auto rightMenu = this->getChildByID("right-side-menu")) {
             starBtn->setPosition({-30.f, 0.f});
             static_cast<CCMenu*>(rightMenu)->addChild(starBtn);
         } else {
-            // Fallback: créer un nouveau menu
             auto menu = CCMenu::create();
             menu->setPosition({winSize.width - 60.f, 60.f});
             starBtn->setPosition({0, 0});
@@ -55,7 +59,6 @@ class $modify(StargrindMenuLayer, MenuLayer) {
             this->addChild(menu, 10);
         }
         
-        // Effet de notification (pulsation subtile)
         starBtn->runAction(CCRepeatForever::create(
             CCSequence::create(
                 CCScaleTo::create(1.5f, 0.55f),
@@ -71,11 +74,28 @@ class $modify(StargrindMenuLayer, MenuLayer) {
         Stargrind::UI::MainMenuLayer::show();
     }
 };
+
 // ============================================
-// HOOK: Gameplay (pour détecter les étoiles gagnées)
+// HOOK: Gameplay & Network Loop
 // ============================================
-#include <Geode/modify/PlayLayer.hpp>
 class $modify(StargrindPlayLayer, PlayLayer) {
+    
+    void update(float dt) {
+        PlayLayer::update(dt);
+
+        // --- BOUCLE RÉSEAU ---
+        // On lit les messages entrants à chaque frame du jeu
+        Stargrind::Network::P2PNetwork::get()->processIncomingMessages();
+
+        // Envoi d'un heartbeat toutes les 3 secondes pour rester connecté
+        static float heartbeatTimer = 0;
+        heartbeatTimer += dt;
+        if (heartbeatTimer > 3.0f) {
+            Stargrind::Network::P2PNetwork::get()->sendHeartbeat();
+            heartbeatTimer = 0;
+        }
+    }
+
     void levelComplete() {
         PlayLayer::levelComplete();
         
@@ -83,6 +103,14 @@ class $modify(StargrindPlayLayer, PlayLayer) {
         auto session = Stargrind::Logic::GameSession::get();
         if (session->getState() == Stargrind::Logic::SessionState::PLAYING ||
             session->getState() == Stargrind::Logic::SessionState::LAST_TRY) {
+            
+            // On envoie physiquement la mise à jour via le réseau
+            Stargrind::Network::P2PNetwork::get()->sendScoreUpdate(
+                1, // +1 étoile
+                m_level->m_levelID, 
+                100.0f
+            );
+            
             session->syncScore();
         }
     }
@@ -90,23 +118,18 @@ class $modify(StargrindPlayLayer, PlayLayer) {
     void destroyPlayer(PlayerObject* player, GameObject* object) {
         PlayLayer::destroyPlayer(player, object);
         
-        // Si en mode "dernier essai" et mort, passer en spectateur
         auto session = Stargrind::Logic::GameSession::get();
         if (session->getState() == Stargrind::Logic::SessionState::LAST_TRY) {
             session->onLastTryComplete(false);
         }
     }
     
-    // Hook pour le skip de niveau (flèche droite)
     bool init(GJGameLevel* level, bool useReplay, bool dontCreateObjects) {
         if (!PlayLayer::init(level, useReplay, dontCreateObjects)) return false;
-        
-        // Ajouter listener pour la touche flèche droite
-        // (Le skip sera géré dans la logique du mod)
-        
         return true;
     }
 };
+
 // ============================================
 // LIFECYCLE
 // ============================================
@@ -122,4 +145,9 @@ $on_mod(Loaded) {
     audioEngine->preloadEffect((resourcesDir / "match_found.mp3").string());
     audioEngine->preloadEffect((resourcesDir / "victory.mp3").string());
     audioEngine->preloadEffect((resourcesDir / "defeat.mp3").string());
+}
+
+$on_mod(Unloaded) {
+    // Proprement fermer ENet quand le mod est déchargé
+    Stargrind::Network::P2PNetwork::get()->shutdown();
 }
