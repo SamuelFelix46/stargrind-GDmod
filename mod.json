@@ -1,0 +1,40 @@
+{
+    "geode": "4.0.0",
+    "gd": {
+        "win": "2.2074",
+        "android": "2.2074"
+    },
+    "id": "votre.nom.stargrind-tournament",
+    "name": "Stargrind Tournament",
+    "version": "v1.0.0",
+    "developer": "zemci",
+    "description": "Mode Tournoi 5v5 - Affrontez d'autres joueurs en temps réel!",
+    "repository": "https://github.com/votre-repo/stargrind",
+    "settings": {
+        "ldm": {
+            "name": "Low Detail Mode",
+            "description": "Réduit les effets visuels",
+            "type": "bool",
+            "default": false
+        },
+        "disable-shake": {
+            "name": "Disable Shake",
+            "description": "Désactive les secousses d'écran",
+            "type": "bool",
+            "default": false
+        },
+        "language": {
+            "name": "Language",
+            "description": "Langue de l'interface",
+            "type": "string",
+            "default": "fr",
+            "one-of": ["en", "fr", "es", "de"]
+        }
+    },
+    "resources": {
+        "files": [
+            "resources/*.mp3",
+            "resources/lang/*.txt"
+        ]
+    }
+}
