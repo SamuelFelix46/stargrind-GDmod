@@ -142,4 +142,3 @@ void Matchmaking::handleMatchFound(const Network::MatchInfo& match) {
     
     log::info("Match found! ID: {}, Team: {}", match.match_id, match.your_team);
 }
-} // namespace Stargrind::Logic

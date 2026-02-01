@@ -41,4 +41,3 @@ public:
     // External updates
     void refreshScores();
 };
-} // namespace Stargrind::UI

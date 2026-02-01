@@ -163,4 +163,3 @@ void VersusLayer::transitionToVote() {
     onClose(nullptr);
     MatchLayer::create(m_match)->show();
 }
-} // namespace Stargrind::UI

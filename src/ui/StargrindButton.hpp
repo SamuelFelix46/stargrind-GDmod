@@ -26,4 +26,3 @@ private:
     void startPulseAnimation();
     void stopPulseAnimation();
 };
-} // namespace Stargrind::UI

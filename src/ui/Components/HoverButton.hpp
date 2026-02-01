@@ -37,4 +37,3 @@ private:
     bool m_playSound = true;
     CCLabelBMFont* m_label = nullptr;
 };
-} // namespace Stargrind::UI

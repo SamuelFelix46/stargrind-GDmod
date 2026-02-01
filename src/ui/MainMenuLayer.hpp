@@ -26,4 +26,3 @@ public:
     static MainMenuLayer* create();
     static void show();
 };
-} // namespace Stargrind::UI

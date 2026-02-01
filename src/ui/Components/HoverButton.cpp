@@ -59,13 +59,13 @@ namespace Stargrind::UI {
     void HoverButton::unselected() {
         CCMenuItemSpriteExtra::unselected();
 
-        // Retour à la taille normale
+        // Retour ï¿½ la taille normale
         stopAllActions();
         runAction(CCEaseSineOut::create(
             CCScaleTo::create(Config::BUTTON_ANIM_DURATION, m_originalScale)
         ));
 
-        // Retour à la couleur normale
+        // Retour ï¿½ la couleur normale
         if (m_label) {
             m_label->setColor(m_normalColor);
         }
@@ -85,4 +85,3 @@ namespace Stargrind::UI {
             m_label->setColor(color);
         }
     }
-} // namespace Stargrind::UI

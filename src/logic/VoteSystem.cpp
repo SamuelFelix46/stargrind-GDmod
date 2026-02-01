@@ -161,4 +161,3 @@ void VoteSystem::downloadLevel(int levelId) {
     glm->downloadLevel(levelId, false);
     log::info("Downloading level: {}", levelId);
 }
-} // namespace Stargrind::Logic

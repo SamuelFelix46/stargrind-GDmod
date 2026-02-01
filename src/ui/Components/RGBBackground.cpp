@@ -49,4 +49,3 @@ ccColor3B RGBBackground::hsvToRgb(float h, float s, float v) {
         static_cast<GLubyte>((b + m) * 255)
     };
 }
-} // namespace Stargrind::UI

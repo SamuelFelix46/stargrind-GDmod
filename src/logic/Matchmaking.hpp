@@ -73,4 +73,3 @@ private:
     void pollStatus();
     void handleMatchFound(const Network::MatchInfo& match);
 };
-} // namespace Stargrind::Logic

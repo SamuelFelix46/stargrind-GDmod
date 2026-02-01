@@ -252,5 +252,3 @@ void P2PNetwork::checkHeartbeats(float dt) {
         }
     }
 }
-
-} // namespace Stargrind::Network

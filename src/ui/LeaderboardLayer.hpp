@@ -27,4 +27,3 @@ protected:
 public:
     static LeaderboardLayer* create();
 };
-} // namespace Stargrind::UI

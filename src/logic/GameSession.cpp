@@ -158,4 +158,3 @@ void GameSession::enterSpectatorMode() {
 bool GameSession::isHost() const {
     return m_currentMatch.host_id == Config::Utils::getPlayerId();
 }
-} // namespace Stargrind::Logic

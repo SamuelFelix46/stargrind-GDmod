@@ -321,4 +321,3 @@ inline CCFiniteTimeAction* AnimatedTransition::createOutAction(
             return CCFadeOut::create(duration);
     }
 }
-} // namespace Stargrind::UI

@@ -29,4 +29,3 @@ protected:
 public:
     static SettingsLayer* create();
 };
-} // namespace Stargrind::UI

@@ -29,4 +29,3 @@ private:
 // Macro pour accéder facilement aux textes
 #define LOC(id) Stargrind::Localization::get()->getText(id)
 #define LOC_KEY(key) Stargrind::Localization::get()->getText(key)
-} // namespace Stargrind

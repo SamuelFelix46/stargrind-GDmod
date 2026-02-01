@@ -287,4 +287,3 @@ void MatchLayer::onClose(CCObject* sender) {
     
     Popup::onClose(sender);
 }
-} // namespace Stargrind::UI

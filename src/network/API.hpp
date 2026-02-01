@@ -94,4 +94,3 @@ private:
     web::WebRequest createRequest();
     matjson::Value parseResponse(const std::string& response);
 };
-} // namespace Stargrind::Network

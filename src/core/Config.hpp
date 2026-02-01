@@ -56,4 +56,3 @@ namespace Utils {
         return static_cast<int>(std::sqrt(xp / 100.0f));
     }
 }
-} // namespace Stargrind

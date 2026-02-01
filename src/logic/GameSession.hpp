@@ -86,4 +86,3 @@ private:
     void syncScoreLoop();
     void updateTimer(float dt);
 };
-} // namespace Stargrind::Logic

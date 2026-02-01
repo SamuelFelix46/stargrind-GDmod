@@ -25,4 +25,3 @@ protected:
 public:
     static LobbyLayer* create();
 };
-} // namespace Stargrind::UI

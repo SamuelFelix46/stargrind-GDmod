@@ -22,4 +22,3 @@ protected:
 public:
     static VersusLayer* create(const Network::MatchInfo& match);
 };
-} // namespace Stargrind::UI

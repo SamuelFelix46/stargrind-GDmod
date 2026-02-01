@@ -97,4 +97,3 @@ void StargrindButton::stopPulseAnimation() {
     m_button->stopAllActions();
     m_button->setScale(0.5f);
 }
-} // namespace Stargrind::UI

@@ -79,4 +79,3 @@ std::string Localization::getText(const std::string& key) const {
 std::vector<std::string> Localization::getAvailableLanguages() const {
     return {"en", "fr", "es", "de"};
 }
-} // namespace Stargrind

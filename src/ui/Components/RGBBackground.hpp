@@ -18,4 +18,3 @@ private:
     
     ccColor3B hsvToRgb(float h, float s, float v);
 };
-} // namespace Stargrind::UIs

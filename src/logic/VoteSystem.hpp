@@ -96,4 +96,3 @@ private:
     void downloadLevel(int levelId);
     DifficultyLevel getMostVotedDifficulty();
 };
-} // namespace Stargrind::Logic

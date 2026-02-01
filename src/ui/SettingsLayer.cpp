@@ -177,4 +177,3 @@ void SettingsLayer::onClose(CCObject* sender) {
     m_background->setPaused(true);
     Popup::onClose(sender);
 }
-} // namespace Stargrind::UI

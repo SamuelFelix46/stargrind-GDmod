@@ -125,4 +125,3 @@ private:
     P2PMessage deserializeMessage(const std::string& data);
 };
 
-} // namespace Stargrind::Network

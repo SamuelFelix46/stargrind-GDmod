@@ -346,4 +346,3 @@ void API::kickAfk(const std::string& matchId, const std::string& gdId, const std
     
     listener->setFilter(req.post(Config::API_BASE + "/kick-afk"));
 }
-} // namespace Stargrind::Network
