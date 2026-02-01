@@ -1,0 +1,70 @@
+# Stargrind Tournament - Archivo de Idioma Español
+# Format: KEY=Value
+# Menu (Lines 1-20)
+MENU_TITLE=Stargrind Tournament
+MENU_PLAY=JUGAR
+MENU_LEADERBOARD=Clasificación
+MENU_SETTINGS=Ajustes
+MENU_COFFEE=Cómprame un café
+MENU_QUIT=Salir
+# Queue (Lines 21-40)
+QUEUE_TITLE=Buscando partida...
+QUEUE_PLAYERS=Jugadores en cola
+QUEUE_WAITING=Esperando jugadores
+QUEUE_CANCEL=Cancelar
+QUEUE_FOUND=¡Partida encontrada!
+# Versus Screen (Lines 41-60)
+VERSUS_TITLE=VERSUS
+VERSUS_TEAM_A=Equipo A
+VERSUS_TEAM_B=Equipo B
+VERSUS_VS=VS
+# Vote (Lines 61-80)
+VOTE_TITLE=Votar dificultad
+VOTE_EASY=Fácil
+VOTE_NORMAL=Normal
+VOTE_HARD=Difícil
+VOTE_HARDER=Más difícil
+VOTE_INSANE=Insano
+VOTE_DEMON=Demonio
+VOTE_EXTREME=Demonio Extremo
+VOTE_TIME_LEFT=Tiempo restante
+VOTE_SKIP=Saltar votación
+# Match (Lines 81-120)
+MATCH_TITLE=Partida en curso
+MATCH_TIME_LEFT=Tiempo restante
+MATCH_YOUR_TEAM=Tu equipo
+MATCH_ENEMY_TEAM=Equipo enemigo
+MATCH_STARS=Estrellas
+MATCH_SKIP_LEVEL=Saltar nivel
+MATCH_SPECTATING=Espectador...
+MATCH_WAITING_END=Esperando a otros jugadores...
+MATCH_LAST_TRY=¡Último intento!
+# Results (Lines 121-150)
+RESULT_VICTORY=¡VICTORIA!
+RESULT_DEFEAT=DERROTA
+RESULT_TIE=EMPATE
+RESULT_MVP=MVP
+RESULT_XP_EARNED=XP Ganada
+RESULT_NEW_LEVEL=¡NUEVO NIVEL!
+RESULT_CONTINUE=Continuar
+# Leaderboard (Lines 151-170)
+LB_TITLE=Clasificación Mundial
+LB_RANK=Rango
+LB_PLAYER=Jugador
+LB_LEVEL=Nivel
+LB_XP=XP
+LB_WINS=Victorias
+LB_YOUR_RANK=Tu Rango
+LB_REFRESH=Actualizar
+# Settings (Lines 171-200)
+SETTINGS_TITLE=Ajustes
+SETTINGS_LDM=Modo de bajos detalles
+SETTINGS_SHAKE=Sacudida de pantalla
+SETTINGS_LANGUAGE=Idioma
+SETTINGS_SAVE=Guardar
+SETTINGS_CANCEL=Cancelar
+# Errors (Lines 201-220)
+ERROR_CONNECTION=Error de conexión
+ERROR_TIMEOUT=Tiempo de espera agotado
+ERROR_KICKED=Has sido expulsado (AFK)
+ERROR_MATCH_ENDED=La partida ha terminado

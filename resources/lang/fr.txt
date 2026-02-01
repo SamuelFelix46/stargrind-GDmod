@@ -1,0 +1,70 @@
+# Stargrind Tournament - Fichier Langue Française
+# Format: KEY=Value
+# Menu (Lines 1-20)
+MENU_TITLE=Stargrind Tournament
+MENU_PLAY=JOUER
+MENU_LEADERBOARD=Classement
+MENU_SETTINGS=Paramètres
+MENU_COFFEE=Offrez-moi un café
+MENU_QUIT=Quitter
+# Queue (Lines 21-40)
+QUEUE_TITLE=Recherche de match...
+QUEUE_PLAYERS=Joueurs en file
+QUEUE_WAITING=En attente de joueurs
+QUEUE_CANCEL=Annuler
+QUEUE_FOUND=Match trouvé!
+# Versus Screen (Lines 41-60)
+VERSUS_TITLE=VERSUS
+VERSUS_TEAM_A=Équipe A
+VERSUS_TEAM_B=Équipe B
+VERSUS_VS=VS
+# Vote (Lines 61-80)
+VOTE_TITLE=Voter la difficulté
+VOTE_EASY=Facile
+VOTE_NORMAL=Normal
+VOTE_HARD=Difficile
+VOTE_HARDER=Plus difficile
+VOTE_INSANE=Fou
+VOTE_DEMON=Démon
+VOTE_EXTREME=Démon Extrême
+VOTE_TIME_LEFT=Temps restant
+VOTE_SKIP=Passer le vote
+# Match (Lines 81-120)
+MATCH_TITLE=Match en cours
+MATCH_TIME_LEFT=Temps restant
+MATCH_YOUR_TEAM=Votre équipe
+MATCH_ENEMY_TEAM=Équipe adverse
+MATCH_STARS=Étoiles
+MATCH_SKIP_LEVEL=Passer le niveau
+MATCH_SPECTATING=Spectateur...
+MATCH_WAITING_END=En attente des autres joueurs...
+MATCH_LAST_TRY=Dernier essai!
+# Results (Lines 121-150)
+RESULT_VICTORY=VICTOIRE!
+RESULT_DEFEAT=DÉFAITE
+RESULT_TIE=ÉGALITÉ
+RESULT_MVP=MVP
+RESULT_XP_EARNED=XP Gagné
+RESULT_NEW_LEVEL=NOUVEAU NIVEAU!
+RESULT_CONTINUE=Continuer
+# Leaderboard (Lines 151-170)
+LB_TITLE=Classement Mondial
+LB_RANK=Rang
+LB_PLAYER=Joueur
+LB_LEVEL=Niveau
+LB_XP=XP
+LB_WINS=Victoires
+LB_YOUR_RANK=Votre Rang
+LB_REFRESH=Actualiser
+# Settings (Lines 171-200)
+SETTINGS_TITLE=Paramètres
+SETTINGS_LDM=Mode Détails Bas
+SETTINGS_SHAKE=Secousses d'écran
+SETTINGS_LANGUAGE=Langue
+SETTINGS_SAVE=Sauvegarder
+SETTINGS_CANCEL=Annuler
+# Errors (Lines 201-220)
+ERROR_CONNECTION=Erreur de connexion
+ERROR_TIMEOUT=Délai dépassé
+ERROR_KICKED=Vous avez été expulsé (AFK)
+ERROR_MATCH_ENDED=Le match est terminé
