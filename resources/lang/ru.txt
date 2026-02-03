@@ -1,24 +1,30 @@
-# Stargrind Tournament - Russian Language File
-# Format: KEY=Value
-# Menu (Lines 1-20)
-MENU_TITLE=Stargrind Tournament
-MENU_PLAY=ИГРАТЬ
-MENU_LEADERBOARD=Таблица лидеров
-MENU_SETTINGS=Настройки
-MENU_COFFEE=Купи мне кофе
-MENU_QUIT=Выход
-# Queue (Lines 21-40)
-QUEUE_TITLE=Поиск матча...
-QUEUE_PLAYERS=Игроков в очереди
-QUEUE_WAITING=Ожидание игроков
-QUEUE_CANCEL=Отмена
-QUEUE_FOUND=Матч найден!
-# Versus Screen (Lines 41-60)
-VERSUS_TITLE=ПРОТИВ
-VERSUS_TEAM_A=Команда A
-VERSUS_TEAM_B=Команда B
-VERSUS_VS=VS
-# Vote (Lines 61-80)
+# UI GENERAL
+UI_PLAY=ИГРАТЬ
+UI_SETTINGS=Настройки
+UI_LEADERBOARD=Рейтинг
+UI_BACK=Назад
+UI_COFFEE=Купи мне кофе
+UI_LOADING=Загрузка...
+UI_CONNECTING=Подключение...
+
+# INTRO
+INTRO_TITLE=STARGRIND
+INTRO_SUBTITLE=ТУРНИР
+INTRO_TAP=НАЖМИТЕ ДЛЯ ПРОДОЛЖЕНИЯ
+
+# LOBBY
+LOBBY_QUEUE=Поиск матча...
+LOBBY_PLAYERS=Игроков в очереди
+LOBBY_CANCEL=Отмена
+LOBBY_FOUND=Матч найден!
+
+# MATCHMAKING
+MATCH_SEARCHING=Поиск игроков...
+MATCH_FOUND=Матч найден!
+MATCH_STARTING=Начало через
+MATCH_VS=VS
+
+# VOTING
 VOTE_TITLE=Голосование за сложность
 VOTE_EASY=Easy
 VOTE_NORMAL=Normal
@@ -27,44 +33,58 @@ VOTE_HARDER=Harder
 VOTE_INSANE=Insane
 VOTE_DEMON=Demon
 VOTE_EXTREME=Extreme Demon
-VOTE_TIME_LEFT=Осталось времени
-VOTE_SKIP=Пропустить голос
-# Match (Lines 81-120)
-MATCH_TITLE=Матч в процессе
-MATCH_TIME_LEFT=Осталось времени
-MATCH_YOUR_TEAM=Ваша команда
-MATCH_ENEMY_TEAM=Вражеская команда
-MATCH_STARS=Звезды
-MATCH_SKIP_LEVEL=Пропустить уровень
-MATCH_SPECTATING=Наблюдение...
-MATCH_WAITING_END=Ожидание других игроков...
-MATCH_LAST_TRY=Последняя попытка!
-# Results (Lines 121-150)
-RESULT_VICTORY=ПОБЕДА!
-RESULT_DEFEAT=ПОРАЖЕНИЕ
-RESULT_TIE=НИЧЬЯ
+VOTE_WAITING=Ожидание голосов...
+VOTE_RESULT=Средняя сложность:
+
+# GAMEPLAY
+GAME_TIMER=Время
+GAME_SCORE=Счет
+GAME_SKIP=Нажмите → чтобы пропустить
+GAME_LEVEL=Уровень
+GAME_STARS=Звезды
+GAME_LAST_ATTEMPT=ПОСЛЕДНЯЯ ПОПЫТКА!
+GAME_TIME_UP=Время вышло!
+GAME_FINISH=Завершите попытку...
+GAME_SKIPPED=ПРОПУЩЕНО!
+GAME_WAITING=Ожидание других игроков...
+
+# RESULTS
+RESULT_VICTORY=Победа!
+RESULT_DEFEAT=Поражение
+RESULT_DRAW=Ничья!
+RESULT_YOUR_TEAM=Ваша команда
+RESULT_ENEMY_TEAM=Вражеская команда
 RESULT_MVP=MVP
 RESULT_XP_EARNED=Опыта получено
-RESULT_NEW_LEVEL=НОВЫЙ УРОВЕНЬ!
-RESULT_CONTINUE=Продолжить
-# Leaderboard (Lines 151-170)
-LB_TITLE=Глобальный рейтинг
-LB_RANK=Ранг
-LB_PLAYER=Игрок
-LB_LEVEL=Уровень
-LB_XP=XP
-LB_WINS=Победы
-LB_YOUR_RANK=Ваш ранг
-LB_REFRESH=Обновить
-# Settings (Lines 171-200)
+RESULT_LEVELS=Пройдено уровней
+RESULT_STARS=Всего звезд
+RESULT_SKIPS=Использовано пропусков
+RESULT_PLAY_AGAIN=Играть снова
+RESULT_MENU=Главное меню
+
+# LEADERBOARD
+LEADER_TITLE=Глобальный рейтинг
+LEADER_RANK=Ранг
+LEADER_PLAYER=Игрок
+LEADER_WINS=Победы
+LEADER_XP=XP
+LEADER_YOU=Ваш ранг
+LEADER_REFRESH=Обновить
+
+# SETTINGS
 SETTINGS_TITLE=Настройки
 SETTINGS_LDM=Режим низкой детализации
-SETTINGS_SHAKE=Тряска экрана
-SETTINGS_LANGUAGE=Язык
-SETTINGS_SAVE=Сохранить
-SETTINGS_CANCEL=Отмена
-# Errors (Lines 201-220)
+SETTINGS_SHAKE=Отключить тряску
+SETTINGS_PARTICLES=Частицы
+SETTINGS_MUSIC=Громкость музыки
+SETTINGS_SFX=Громкость звуков
+SETTINGS_LANG=Язык
+SETTINGS_CREDITS=Авторы
+SETTINGS_VERSION=Версия
+
+# ERRORS
 ERROR_CONNECTION=Ошибка соединения
 ERROR_TIMEOUT=Время ожидания истекло
-ERROR_KICKED=Вы были кикнуты (AFK)
-ERROR_MATCH_ENDED=Матч окончен
+ERROR_SERVER=Ошибка сервера
+ERROR_RETRY=Повторить
+ERROR_OFFLINE=Вы не в сети

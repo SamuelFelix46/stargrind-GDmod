@@ -1,24 +1,30 @@
-# Stargrind Tournament - Portuguese Language File
-# Format: KEY=Value
-# Menu (Lines 1-20)
-MENU_TITLE=Stargrind Tournament
-MENU_PLAY=JOGAR
-MENU_LEADERBOARD=Placar
-MENU_SETTINGS=Configurações
-MENU_COFFEE=Pague-me um café
-MENU_QUIT=Sair
-# Queue (Lines 21-40)
-QUEUE_TITLE=Procurando partida...
-QUEUE_PLAYERS=Jogadores na fila
-QUEUE_WAITING=Aguardando jogadores
-QUEUE_CANCEL=Cancelar
-QUEUE_FOUND=Partida encontrada!
-# Versus Screen (Lines 41-60)
-VERSUS_TITLE=VERSUS
-VERSUS_TEAM_A=Equipe A
-VERSUS_TEAM_B=Equipe B
-VERSUS_VS=VS
-# Vote (Lines 61-80)
+# UI GENERAL
+UI_PLAY=Jogar
+UI_SETTINGS=Configurações
+UI_LEADERBOARD=Placar
+UI_BACK=Voltar
+UI_COFFEE=Pague-me um café
+UI_LOADING=Carregando...
+UI_CONNECTING=Conectando...
+
+# INTRO
+INTRO_TITLE=STARGRIND
+INTRO_SUBTITLE=TORNEIO
+INTRO_TAP=TOQUE PARA CONTINUAR
+
+# LOBBY
+LOBBY_QUEUE=Procurando partida...
+LOBBY_PLAYERS=Jogadores na fila
+LOBBY_CANCEL=Cancelar
+LOBBY_FOUND=Partida encontrada!
+
+# MATCHMAKING
+MATCH_SEARCHING=Procurando jogadores...
+MATCH_FOUND=Partida encontrada!
+MATCH_STARTING=Iniciando em
+MATCH_VS=VS
+
+# VOTING
 VOTE_TITLE=Votar Dificuldade
 VOTE_EASY=Fácil
 VOTE_NORMAL=Normal
@@ -27,44 +33,58 @@ VOTE_HARDER=Mais Difícil
 VOTE_INSANE=Insano
 VOTE_DEMON=Demon
 VOTE_EXTREME=Extreme Demon
-VOTE_TIME_LEFT=Tempo restante
-VOTE_SKIP=Pular voto
-# Match (Lines 81-120)
-MATCH_TITLE=Partida em andamento
-MATCH_TIME_LEFT=Tempo restante
-MATCH_YOUR_TEAM=Sua equipe
-MATCH_ENEMY_TEAM=Equipe adversária
-MATCH_STARS=Estrelas
-MATCH_SKIP_LEVEL=Pular nível
-MATCH_SPECTATING=Espectando...
-MATCH_WAITING_END=Aguardando outros jogadores...
-MATCH_LAST_TRY=Última tentativa!
-# Results (Lines 121-150)
-RESULT_VICTORY=VITÓRIA!
-RESULT_DEFEAT=DERROTA
-RESULT_TIE=EMPATE
+VOTE_WAITING=Aguardando votos...
+VOTE_RESULT=Dificuldade média:
+
+# GAMEPLAY
+GAME_TIMER=Tempo
+GAME_SCORE=Pontuação
+GAME_SKIP=Pressione → para pular
+GAME_LEVEL=Nível
+GAME_STARS=Estrelas
+GAME_LAST_ATTEMPT=ÚLTIMA TENTATIVA!
+GAME_TIME_UP=Acabou o tempo!
+GAME_FINISH=Termine sua tentativa...
+GAME_SKIPPED=PULADO!
+GAME_WAITING=Aguardando outros jogadores...
+
+# RESULTS
+RESULT_VICTORY=Vitória!
+RESULT_DEFEAT=Derrota
+RESULT_DRAW=Empate!
+RESULT_YOUR_TEAM=Sua equipe
+RESULT_ENEMY_TEAM=Equipe adversária
 RESULT_MVP=MVP
 RESULT_XP_EARNED=XP Ganho
-RESULT_NEW_LEVEL=NOVO NÍVEL!
-RESULT_CONTINUE=Continuar
-# Leaderboard (Lines 151-170)
-LB_TITLE=Ranking Global
-LB_RANK=Rank
-LB_PLAYER=Jogador
-LB_LEVEL=Nível
-LB_XP=XP
-LB_WINS=Vitórias
-LB_YOUR_RANK=Seu Rank
-LB_REFRESH=Atualizar
-# Settings (Lines 171-200)
+RESULT_LEVELS=Níveis concluídos
+RESULT_STARS=Total de Estrelas
+RESULT_SKIPS=Pulos usados
+RESULT_PLAY_AGAIN=Jogar novamente
+RESULT_MENU=Menu Principal
+
+# LEADERBOARD
+LEADER_TITLE=Ranking Global
+LEADER_RANK=Rank
+LEADER_PLAYER=Jogador
+LEADER_WINS=Vitórias
+LEADER_XP=XP
+LEADER_YOU=Seu Rank
+LEADER_REFRESH=Atualizar
+
+# SETTINGS
 SETTINGS_TITLE=Configurações
 SETTINGS_LDM=Modo de Baixo Detalhe
-SETTINGS_SHAKE=Tremor de tela
-SETTINGS_LANGUAGE=Idioma
-SETTINGS_SAVE=Salvar
-SETTINGS_CANCEL=Cancelar
-# Errors (Lines 201-220)
+SETTINGS_SHAKE=Desativar tremor
+SETTINGS_PARTICLES=Partículas
+SETTINGS_MUSIC=Volume da Música
+SETTINGS_SFX=Volume dos Efeitos
+SETTINGS_LANG=Idioma
+SETTINGS_CREDITS=Créditos
+SETTINGS_VERSION=Versão
+
+# ERRORS
 ERROR_CONNECTION=Erro de conexão
 ERROR_TIMEOUT=Tempo esgotado
-ERROR_KICKED=Você foi expulso (AFK)
-ERROR_MATCH_ENDED=A partida terminou
+ERROR_SERVER=Erro do servidor
+ERROR_RETRY=Tentar novamente
+ERROR_OFFLINE=Você está offline
