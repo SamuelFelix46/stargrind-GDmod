@@ -124,4 +124,3 @@ private:
     std::string serializeMessage(const P2PMessage& message);
     P2PMessage deserializeMessage(const std::string& data);
 };
-

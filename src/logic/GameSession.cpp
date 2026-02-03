@@ -1,160 +1,189 @@
 #include "GameSession.hpp"
-#include "../core/Config.hpp"
-namespace Stargrind::Logic {
+#include "../network/P2PNetwork.hpp"
+#include "LevelQueue.hpp"
+
 GameSession* GameSession::s_instance = nullptr;
+
 GameSession* GameSession::get() {
     if (!s_instance) {
         s_instance = new GameSession();
     }
     return s_instance;
 }
-void GameSession::setState(SessionState state) {
-    m_state = state;
-    if (m_onStateChange) {
-        m_onStateChange(state);
-    }
+
+void GameSession::destroy() {
+    delete s_instance;
+    s_instance = nullptr;
 }
-void GameSession::joinQueue() {
-    if (m_state != SessionState::IDLE) return;
+
+void GameSession::startSession(int myTeamId,
+                                const std::vector<std::string>& team1Members,
+                                const std::vector<std::string>& team2Members) {
+    m_myTeamId = myTeamId;
     
-    Network::API::get()->joinQueue(
-        [this](int queueCount, int playersNeeded) {
-            setState(SessionState::IN_QUEUE);
-            startPolling();
-            log::info("Joined queue: {}/10", queueCount);
-        },
-        [](const std::string& error) {
-            log::error("Failed to join queue: {}", error);
-        }
-    );
-}
-void GameSession::leaveQueue() {
-    stopPolling();
+    m_team1 = TeamScore{1, 0, team1Members};
+    m_team2 = TeamScore{2, 0, team2Members};
     
-    Network::API::get()->leaveQueue(
-        [this](const std::string&) {
-            setState(SessionState::IDLE);
-        },
-        [](const std::string& error) {
-            log::error("Failed to leave queue: {}", error);
-        }
-    );
-}
-void GameSession::startPolling() {
-    if (m_pollingActive) return;
-    m_pollingActive = true;
-    pollStatus();
-}
-void GameSession::stopPolling() {
-    m_pollingActive = false;
-}
-void GameSession::pollStatus() {
-    if (!m_pollingActive || m_state != SessionState::IN_QUEUE) return;
-    
-    Network::API::get()->checkStatus(
-        [this](int queueCount, int playersNeeded) {
-            // Toujours en attente, continuer le polling
-            if (m_pollingActive) {
-                // Schedule next poll in 5 seconds
-                // (Utilisez le scheduler de Cocos2d)
-            }
-        },
-        [this](const Network::MatchInfo& match) {
-            // Match trouvé!
-            stopPolling();
-            startMatch(match);
-        },
-        [](const std::string& error) {
-            log::error("Status check failed: {}", error);
-        }
-    );
-}
-void GameSession::startMatch(const Network::MatchInfo& match) {
-    m_currentMatch = match;
-    
-    // Passer à l'écran versus
-    setState(SessionState::VERSUS_SCREEN);
-    
-    if (m_onMatchFound) {
-        m_onMatchFound(match);
-    }
-    
-    // Sauvegarder les étoiles de base
-    m_baseStars = Config::Utils::getCurrentStars();
-}
-void GameSession::endMatch() {
-    if (!isHost()) {
-        log::warn("Only host can end match");
-        return;
-    }
-    
-    Network::API::get()->endMatch(
-        m_currentMatch.match_id,
-        [this](const std::string& result) {
-            setState(SessionState::RESULTS);
-            log::info("Match ended: {}", result);
-        },
-        [](const std::string& error) {
-            log::error("Failed to end match: {}", error);
-        }
-    );
-}
-void GameSession::setBaseStars(int stars) {
-    m_baseStars = stars;
-}
-int GameSession::getStarsGained() const {
-    return Config::Utils::getCurrentStars() - m_baseStars;
-}
-void GameSession::syncScore() {
-    int starsGained = getStarsGained();
-    if (starsGained < 0) starsGained = 0;
-    
-    Network::API::get()->updateScore(
-        m_currentMatch.match_id,
-        starsGained,
-        [](const std::string&) {
-            log::info("Score synced");
-        },
-        [](const std::string& error) {
-            log::error("Score sync failed: {}", error);
-        }
-    );
-}
-void GameSession::skipLevel() {
-    // Le skip est géré côté client
-    // On sync juste le score actuel
-    syncScore();
-}
-void GameSession::startMatchTimer() {
-    m_timeRemaining = Config::MATCH_DURATION;
-    setState(SessionState::PLAYING);
+    // Reset stats
+    m_myStats = PlayerStats{};
+    m_myStats.odName = GJAccountManager::sharedState()->m_username;
     
     // Démarrer le timer
-    // (Utilisez le scheduler de Cocos2d pour appeler updateTimer toutes les secondes)
+    m_startTime = std::chrono::steady_clock::now();
+    m_timerPaused = false;
+    
+    setState(SessionState::Playing);
+    
+    log::info("Game session started! Team {} vs Team {}", 
+              team1Members.size(), team2Members.size());
 }
-void GameSession::updateTimer(float dt) {
-    if (m_state != SessionState::PLAYING && m_state != SessionState::LAST_TRY) return;
+
+void GameSession::endSession() {
+    setState(SessionState::Finished);
+    LevelQueue::get()->stop();
     
-    m_timeRemaining -= dt;
-    
-    if (m_onTimeUpdate) {
-        m_onTimeUpdate(m_timeRemaining);
+    log::info("Game session ended. Final scores: {} vs {}", 
+              m_team1.totalStars, m_team2.totalStars);
+}
+
+void GameSession::reset() {
+    m_state = SessionState::NotStarted;
+    m_team1 = TeamScore{};
+    m_team2 = TeamScore{};
+    m_myStats = PlayerStats{};
+    m_myTeamId = 0;
+    m_timerPaused = false;
+}
+
+int GameSession::getRemainingSeconds() const {
+    if (m_timerPaused) {
+        return m_pausedTimeRemaining;
     }
     
-    if (m_timeRemaining <= 0 && m_state == SessionState::PLAYING) {
-        // Temps écoulé - mode "dernier essai"
-        setState(SessionState::LAST_TRY);
+    auto now = std::chrono::steady_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(
+        now - m_startTime
+    ).count();
+    
+    int remaining = m_durationSeconds - static_cast<int>(elapsed);
+    return std::max(0, remaining);
+}
+
+std::string GameSession::getFormattedTime() const {
+    int total = getRemainingSeconds();
+    int mins = total / 60;
+    int secs = total % 60;
+    
+    char buffer[16];
+    snprintf(buffer, sizeof(buffer), "%02d:%02d", mins, secs);
+    return std::string(buffer);
+}
+
+bool GameSession::isTimeUp() const {
+    return getRemainingSeconds() <= 0;
+}
+
+void GameSession::pauseTimer() {
+    if (!m_timerPaused) {
+        m_pausedTimeRemaining = getRemainingSeconds();
+        m_timerPaused = true;
     }
 }
-void GameSession::onLastTryComplete(bool completed) {
-    // Appelé quand le joueur meurt ou gagne après le temps
-    syncScore();
-    enterSpectatorMode();
+
+void GameSession::resumeTimer() {
+    if (m_timerPaused) {
+        // Recalculer le temps de départ
+        m_startTime = std::chrono::steady_clock::now() - 
+                      std::chrono::seconds(m_durationSeconds - m_pausedTimeRemaining);
+        m_timerPaused = false;
+    }
 }
-void GameSession::enterSpectatorMode() {
-    setState(SessionState::SPECTATING);
-    log::info("Entered spectator mode");
+
+void GameSession::setState(SessionState newState) {
+    if (m_state != newState) {
+        m_state = newState;
+        
+        if (m_onStateChange) {
+            m_onStateChange(newState);
+        }
+        
+        log::debug("Session state changed to: {}", static_cast<int>(newState));
+    }
 }
-bool GameSession::isHost() const {
-    return m_currentMatch.host_id == Config::Utils::getPlayerId();
+
+void GameSession::addScore(int stars) {
+    TeamScore& myTeam = (m_myTeamId == 1) ? m_team1 : m_team2;
+    myTeam.totalStars += stars;
+    
+    // Envoyer via P2P
+    Stargrind::Network::P2PNetwork::get()->sendScoreUpdate(
+        stars,
+        LevelQueue::get()->getCurrentLevel() ? 
+            LevelQueue::get()->getCurrentLevel()->m_levelID : 0,
+        0.0f
+    );
+    
+    if (m_onScoreUpdate) {
+        m_onScoreUpdate(m_myTeamId, myTeam.totalStars);
+    }
+}
+
+void GameSession::receiveTeamScore(int teamId, int additionalStars) {
+    TeamScore& team = (teamId == 1) ? m_team1 : m_team2;
+    team.totalStars += additionalStars;
+    
+    if (m_onScoreUpdate) {
+        m_onScoreUpdate(teamId, team.totalStars);
+    }
+}
+
+int GameSession::getMyTeamScore() const {
+    return (m_myTeamId == 1) ? m_team1.totalStars : m_team2.totalStars;
+}
+
+int GameSession::getOpponentTeamScore() const {
+    return (m_myTeamId == 1) ? m_team2.totalStars : m_team1.totalStars;
+}
+
+void GameSession::onLevelComplete(int starsEarned) {
+    m_myStats.starsEarned += starsEarned;
+    m_myStats.levelsCompleted++;
+    m_myStats.highestProgress = 100;
+    
+    addScore(starsEarned);
+    
+    log::info("Level complete! +{} stars. Total: {}", 
+              starsEarned, m_myStats.starsEarned);
+}
+
+void GameSession::onLevelFail() {
+    m_myStats.levelsFailed++;
+}
+
+void GameSession::onSkip() {
+    m_myStats.skipsUsed++;
+    m_myStats.highestProgress = 0;
+    
+    log::debug("Level skipped. Total skips: {}", m_myStats.skipsUsed);
+}
+
+void GameSession::onProgress(int percent) {
+    if (percent > m_myStats.highestProgress) {
+        m_myStats.highestProgress = percent;
+    }
+}
+
+void GameSession::update(float dt) {
+    if (m_state != SessionState::Playing) return;
+    
+    // Vérifier si le temps est écoulé
+    if (isTimeUp()) {
+        setState(SessionState::LastAttempt);
+        
+        if (m_onTimeUp) {
+            m_onTimeUp();
+        }
+        
+        log::info("Time's up! Entering last attempt mode.");
+    }
 }

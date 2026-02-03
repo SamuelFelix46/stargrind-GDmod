@@ -14,10 +14,7 @@ enum class DifficultyLevel {
     HARD = 2,
     HARDER = 3,
     INSANE = 4,
-    EASY_DEMON = 5,
-    MEDIUM_DEMON = 6,
-    HARD_DEMON = 7,
-    INSANE_DEMON = 8,
+    DEMON = 5,
     EXTREME_DEMON = 6
 };
 // ============================================

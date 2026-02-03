@@ -1,88 +1,108 @@
 #pragma once
 #include <Geode/Geode.hpp>
-#include "../network/API.hpp"
+#include <vector>
+#include <chrono>
 #include <functional>
+
 using namespace geode::prelude;
-namespace Stargrind::Logic {
+
 enum class SessionState {
-    IDLE,
-    IN_QUEUE,
-    VERSUS_SCREEN,
-    VOTING,
-    LOADING_LEVELS,
-    PLAYING,
-    LAST_TRY,
-    SPECTATING,
-    RESULTS
+    NotStarted,
+    Countdown,     // 3, 2, 1...
+    Playing,
+    LastAttempt,   // Timer fini, joueur termine son essai
+    Spectating,
+    Finished
 };
+
+struct TeamScore {
+    int teamId;
+    int totalStars = 0;
+    std::vector<std::string> members;
+};
+
+struct PlayerStats {
+    std::string odName;
+    int starsEarned = 0;
+    int levelsCompleted = 0;
+    int levelsFailed = 0;
+    int skipsUsed = 0;
+    int highestProgress = 0; // %
+};
+
 class GameSession {
-public:
-    static GameSession* get();
-    
-    // State Management
-    SessionState getState() const { return m_state; }
-    void setState(SessionState state);
-    
-    // Queue
-    void joinQueue();
-    void leaveQueue();
-    void startPolling();
-    void stopPolling();
-    
-    // Match
-    void startMatch(const Network::MatchInfo& match);
-    void endMatch();
-    
-    // Gameplay
-    void setBaseStars(int stars);
-    int getBaseStars() const { return m_baseStars; }
-    int getStarsGained() const;
-    void syncScore();
-    void skipLevel();
-    
-    // Timer
-    void startMatchTimer();
-    float getTimeRemaining() const { return m_timeRemaining; }
-    bool isTimeUp() const { return m_timeRemaining <= 0; }
-    void onLastTryComplete(bool completed);
-    
-    // Spectating
-    void enterSpectatorMode();
-    bool isSpectating() const { return m_state == SessionState::SPECTATING; }
-    
-    // Match Info
-    const Network::MatchInfo& getMatchInfo() const { return m_currentMatch; }
-    bool isHost() const;
-    std::string getMyTeam() const { return m_currentMatch.your_team; }
-    
-    // Callbacks
-    using StateCallback = std::function<void(SessionState)>;
-    using MatchCallback = std::function<void(const Network::MatchInfo&)>;
-    using TimeCallback = std::function<void(float)>;
-    
-    void setOnStateChange(StateCallback cb) { m_onStateChange = cb; }
-    void setOnMatchFound(MatchCallback cb) { m_onMatchFound = cb; }
-    void setOnScoresUpdated(MatchCallback cb) { m_onScoresUpdated = cb; }
-    void setOnTimeUpdate(TimeCallback cb) { m_onTimeUpdate = cb; }
-    
 private:
-    GameSession() = default;
     static GameSession* s_instance;
     
-    SessionState m_state = SessionState::IDLE;
-    Network::MatchInfo m_currentMatch;
+    SessionState m_state = SessionState::NotStarted;
     
-    int m_baseStars = 0;
-    float m_timeRemaining = 0;
-    bool m_pollingActive = false;
-    bool m_scoreSyncActive = false;
+    // Timer
+    std::chrono::steady_clock::time_point m_startTime;
+    int m_durationSeconds = 30 * 60; // 30 minutes
+    int m_pausedTimeRemaining = 0;
+    bool m_timerPaused = false;
     
-    StateCallback m_onStateChange;
-    MatchCallback m_onMatchFound;
-    MatchCallback m_onScoresUpdated;
-    TimeCallback m_onTimeUpdate;
+    // Équipes
+    TeamScore m_team1;
+    TeamScore m_team2;
+    int m_myTeamId = 0;
     
-    void pollStatus();
-    void syncScoreLoop();
-    void updateTimer(float dt);
+    // Stats
+    PlayerStats m_myStats;
+    
+    // Callbacks
+    std::function<void()> m_onTimeUp;
+    std::function<void(SessionState)> m_onStateChange;
+    std::function<void(int teamId, int newTotal)> m_onScoreUpdate;
+    
+public:
+    static GameSession* get();
+    static void destroy();
+    
+    // Lifecycle
+    void startSession(int myTeamId, 
+                      const std::vector<std::string>& team1Members,
+                      const std::vector<std::string>& team2Members);
+    void endSession();
+    void reset();
+    
+    // Timer
+    int getRemainingSeconds() const;
+    std::string getFormattedTime() const;
+    bool isTimeUp() const;
+    void pauseTimer();
+    void resumeTimer();
+    
+    // État
+    SessionState getState() const { return m_state; }
+    void setState(SessionState newState);
+    bool isPlaying() const { 
+        return m_state == SessionState::Playing || m_state == SessionState::LastAttempt; 
+    }
+    
+    // Scores
+    void addScore(int stars);
+    void receiveTeamScore(int teamId, int additionalStars);
+    int getMyTeamScore() const;
+    int getOpponentTeamScore() const;
+    TeamScore getTeam1() const { return m_team1; }
+    TeamScore getTeam2() const { return m_team2; }
+    int getMyTeamId() const { return m_myTeamId; }
+    
+    // Actions de jeu
+    void onLevelComplete(int starsEarned);
+    void onLevelFail();
+    void onSkip();
+    void onProgress(int percent);
+    
+    // Stats
+    PlayerStats getMyStats() const { return m_myStats; }
+    
+    // Callbacks
+    void setOnTimeUp(std::function<void()> cb) { m_onTimeUp = cb; }
+    void setOnStateChange(std::function<void(SessionState)> cb) { m_onStateChange = cb; }
+    void setOnScoreUpdate(std::function<void(int, int)> cb) { m_onScoreUpdate = cb; }
+    
+    // Update (appelé chaque frame depuis le hook)
+    void update(float dt);
 };

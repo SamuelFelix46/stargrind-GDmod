@@ -1,25 +1,31 @@
-# Stargrind Tournament - English Language File
-# Format: KEY=Value
-# Menu (Lines 1-20)
-MENU_TITLE=Stargrind Tournament
-MENU_PLAY=PLAY
-MENU_LEADERBOARD=Leaderboard
-MENU_SETTINGS=Settings
-MENU_COFFEE=Buy me a coffee
-MENU_QUIT=Quit
-# Queue (Lines 21-40)
-QUEUE_TITLE=Finding Match...
-QUEUE_PLAYERS=Players in queue
-QUEUE_WAITING=Waiting for players
-QUEUE_CANCEL=Cancel
-QUEUE_FOUND=Match Found!
-# Versus Screen (Lines 41-60)
-VERSUS_TITLE=VERSUS
-VERSUS_TEAM_A=Team A
-VERSUS_TEAM_B=Team B
-VERSUS_VS=VS
-# Vote (Lines 61-80)
-VOTE_TITLE=Vote Difficulty
+# UI GENERAL
+UI_PLAY=Play
+UI_SETTINGS=Settings
+UI_LEADERBOARD=Leaderboard
+UI_BACK=Back
+UI_COFFEE=Buy me a coffee
+UI_LOADING=Loading...
+UI_CONNECTING=Connecting...
+
+# INTRO
+INTRO_TITLE=STARGRIND
+INTRO_SUBTITLE=TOURNAMENT
+INTRO_TAP=TAP TO CONTINUE
+
+# LOBBY
+LOBBY_QUEUE=Finding match...
+LOBBY_PLAYERS=Players in queue
+LOBBY_CANCEL=Cancel
+LOBBY_FOUND=Match found!
+
+# MATCHMAKING
+MATCH_SEARCHING=Searching for players...
+MATCH_FOUND=Match Found!
+MATCH_STARTING=Starting in
+MATCH_VS=VS
+
+# VOTING
+VOTE_TITLE=Vote for Difficulty
 VOTE_EASY=Easy
 VOTE_NORMAL=Normal
 VOTE_HARD=Hard
@@ -27,44 +33,58 @@ VOTE_HARDER=Harder
 VOTE_INSANE=Insane
 VOTE_DEMON=Demon
 VOTE_EXTREME=Extreme Demon
-VOTE_TIME_LEFT=Time left
-VOTE_SKIP=Skip Vote
-# Match (Lines 81-120)
-MATCH_TITLE=Match in Progress
-MATCH_TIME_LEFT=Time Remaining
-MATCH_YOUR_TEAM=Your Team
-MATCH_ENEMY_TEAM=Enemy Team
-MATCH_STARS=Stars
-MATCH_SKIP_LEVEL=Skip Level
-MATCH_SPECTATING=Spectating...
-MATCH_WAITING_END=Waiting for others to finish...
-MATCH_LAST_TRY=Last Try!
-# Results (Lines 121-150)
-RESULT_VICTORY=VICTORY!
-RESULT_DEFEAT=DEFEAT
-RESULT_TIE=TIE
+VOTE_WAITING=Waiting for votes...
+VOTE_RESULT=Average difficulty:
+
+# GAMEPLAY
+GAME_TIMER=Time
+GAME_SCORE=Score
+GAME_SKIP=Press → to skip
+GAME_LEVEL=Level
+GAME_STARS=Stars
+GAME_LAST_ATTEMPT=LAST ATTEMPT!
+GAME_TIME_UP=Time's up!
+GAME_FINISH=Finish your attempt...
+GAME_SKIPPED=SKIPPED!
+GAME_WAITING=Waiting for other players...
+
+# RESULTS
+RESULT_VICTORY=Victory!
+RESULT_DEFEAT=Defeat
+RESULT_DRAW=Draw!
+RESULT_YOUR_TEAM=Your Team
+RESULT_ENEMY_TEAM=Enemy Team
 RESULT_MVP=MVP
 RESULT_XP_EARNED=XP Earned
-RESULT_NEW_LEVEL=NEW LEVEL!
-RESULT_CONTINUE=Continue
-# Leaderboard (Lines 151-170)
-LB_TITLE=Global Leaderboard
-LB_RANK=Rank
-LB_PLAYER=Player
-LB_LEVEL=Level
-LB_XP=XP
-LB_WINS=Wins
-LB_YOUR_RANK=Your Rank
-LB_REFRESH=Refresh
-# Settings (Lines 171-200)
+RESULT_LEVELS=Levels Completed
+RESULT_STARS=Total Stars
+RESULT_SKIPS=Skips Used
+RESULT_PLAY_AGAIN=Play Again
+RESULT_MENU=Main Menu
+
+# LEADERBOARD
+LEADER_TITLE=Global Leaderboard
+LEADER_RANK=Rank
+LEADER_PLAYER=Player
+LEADER_WINS=Wins
+LEADER_XP=XP
+LEADER_YOU=Your Rank
+LEADER_REFRESH=Refresh
+
+# SETTINGS
 SETTINGS_TITLE=Settings
 SETTINGS_LDM=Low Detail Mode
-SETTINGS_SHAKE=Screen Shake
-SETTINGS_LANGUAGE=Language
-SETTINGS_SAVE=Save
-SETTINGS_CANCEL=Cancel
-# Errors (Lines 201-220)
-ERROR_CONNECTION=Connection Error
-ERROR_TIMEOUT=Request Timeout
-ERROR_KICKED=You were kicked (AFK)
-ERROR_MATCH_ENDED=Match has ended
+SETTINGS_SHAKE=Disable Shake
+SETTINGS_PARTICLES=Particles
+SETTINGS_MUSIC=Music Volume
+SETTINGS_SFX=SFX Volume
+SETTINGS_LANG=Language
+SETTINGS_CREDITS=Credits
+SETTINGS_VERSION=Version
+
+# ERRORS
+ERROR_CONNECTION=Connection failed
+ERROR_TIMEOUT=Connection timed out
+ERROR_SERVER=Server error
+ERROR_RETRY=Retry
+ERROR_OFFLINE=You are offline
